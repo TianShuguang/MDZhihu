@@ -36,10 +36,7 @@ public class ValueUtils {
      * @return boolean
      */
     public static boolean isStrEmpty(String value) {
-        if (null == value || "".equals(value.trim())) {
-            return true;
-        }
-        return false;
+        return null == value || "".equals(value.trim());
     }
     /**
      * @description 判断String字符串是否非空

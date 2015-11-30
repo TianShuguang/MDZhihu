@@ -1,5 +1,7 @@
 package com.tian.zhihu.constant;
 
+import java.net.URLEncoder;
+
 /**
  * Created by tianshuguang on 15/11/30.
  */
@@ -8,7 +10,7 @@ public interface AppConstant {
     /**基本URL*/
     String BaseUrl="http://news-at.zhihu.com/";
     /**1. 启动界面图像获取*/
-    String method_startimage="api/4/start-image/1080*1776";
+    String method_startimage="api/4/start-image/720*1184";
     /**2. 软件版本查询*/
     String method_version="api/4/version/android/2.3.0";
     /**3. 最新消息*/
@@ -28,8 +30,5 @@ public interface AppConstant {
     String method_themes="api/4/themes";
     /**10. 主题日报内容查看*/
     String method_themes_content="api/4/theme/11";
-
-
-
 
 }
