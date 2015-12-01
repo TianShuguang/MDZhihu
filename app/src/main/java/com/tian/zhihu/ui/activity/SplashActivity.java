@@ -19,7 +19,6 @@ import com.tian.zhihu.network.UIDataListener;
 import com.tian.zhihu.network.VolleyQueueController;
 import com.tian.zhihu.network.api.GetStartImageHelper;
 import com.tian.zhihu.network.bean.StartImage;
-import com.tian.zhihu.ui.MainActivity;
 import com.tian.zhihu.utils.LogUtils;
 
 import java.io.File;
@@ -55,8 +54,7 @@ public class SplashActivity extends BaseActivity implements UIDataListener<Start
     @Override
     public void onDataChanged(StartImage data) {
         LogUtils.d(TAG,"text=="+data.text);
-        LogUtils.d(TAG,"img=="+data.img);
-        showToast("text==" + data.text + "img==" + data.img);
+        LogUtils.d(TAG, "img==" + data.img);
         initImage(data.img);
     }
 
