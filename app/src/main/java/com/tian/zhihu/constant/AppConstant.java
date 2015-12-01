@@ -29,6 +29,6 @@ public interface AppConstant {
     /**9. 主题日报列表查看*/
     String method_themes="api/4/themes";
     /**10. 主题日报内容查看*/
-    String method_themes_content="api/4/theme/11";
+    String method_themes_content="api/4/theme/";
 
 }
