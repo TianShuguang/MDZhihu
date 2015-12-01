@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.tian.zhihu.R;
 import com.tian.zhihu.ZhihuApp;
+import com.tian.zhihu.utils.LogUtils;
 
 /**
  * Created by tianshuguang on 15/11/30.
@@ -72,7 +73,7 @@ public abstract class BaseActivity extends AppCompatActivity{
     @Override
     public void setContentView(int layoutResID) {
         LayoutInflater inflater=LayoutInflater.from(BaseActivity.this);
-        inflater.inflate(layoutResID,base_content);
+        inflater.inflate(layoutResID, base_content);
     }
 
     @Override
@@ -103,21 +104,14 @@ public abstract class BaseActivity extends AppCompatActivity{
     }
 
     /******************************Fragment管理********START************************************/
+
     /**
      * 显示内容
      * @param fragment
-     */
-    public void showFragment(Class fragment,int contentId){
-        replaceFragment(fragment, null, contentId);
-    }
-
-    /**
-     * 替换成另一个fragment
-     * @param fragment
      *      fragment.class
      */
-    public void replaceFragment(Class fragment,Bundle bundle,int contentId){
-        replaceWithFragment(fragment, fragment.getSimpleName(), bundle, contentId);
+    public void showFragment(Fragment fragment,Bundle bundle,int contentId){
+        showWithFragment(fragment, fragment.getClass().getSimpleName(), bundle, contentId);
     }
 
     /**
@@ -127,7 +121,7 @@ public abstract class BaseActivity extends AppCompatActivity{
      * @param tag
      *      一个fragment实例对应一个tag,tag不能为空和“”，且必须唯一
      */
-    public void replaceWithFragment(Class fragment,String tag,Bundle bundle,int contentId){
+    public void showWithFragment(Fragment fragment,String tag,Bundle bundle,int contentId){
         if(fragment == null)
             return;
         if(tag == null || tag.equals("")){
@@ -136,14 +130,12 @@ public abstract class BaseActivity extends AppCompatActivity{
         Fragment cf = fm.findFragmentByTag(tag);
         if(cf == null){
             try {
-                cf = (Fragment) fragment.newInstance();
+                cf = fragment;
                 if(bundle != null)
                     cf.setArguments(bundle);
-            } catch (InstantiationException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 throw new RuntimeException("初始化fragment失败");
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
             }
         }else{
             if(cf == currentFragment)
@@ -151,7 +143,8 @@ public abstract class BaseActivity extends AppCompatActivity{
         }
         currentFragment = cf;
         FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(contentId, cf, tag);
+        //replace替换当前的viewGroup内容,add则不替换会依次累加
+        ft.add(contentId, cf, tag);
         ft.commit();
 
     }
@@ -164,32 +157,34 @@ public abstract class BaseActivity extends AppCompatActivity{
      * @param contentId
      *      操作的layout的Id
      */
-    public void changeFragment(Class fragment,Bundle bundle,int contentId){
-        changeWithFragment(fragment, fragment.getSimpleName(), bundle, contentId);
+    public void replaceFragment(Fragment fragment,Bundle bundle,int contentId){
+        replaceWithFragment(fragment, fragment.getClass().getSimpleName(), bundle, contentId);
     }
-    public void changeWithFragment(Class fragment,String tag,Bundle bundle,int contentId){
+    public void replaceWithFragment(Fragment fragment,String tag,Bundle bundle,int contentId){
         if(fragment == null)
             return;
         if(tag == null || tag.equals("")){
             throw new RuntimeException("replaceContentWithFragment中fragment对应的tag为null或空");
         }
-        Fragment cf = fm.findFragmentByTag(tag);
+        Fragment cf = null;
 
         FragmentTransaction ft = fm.beginTransaction();
-        if(currentFragment != null)
-            ft.detach(currentFragment);
+        if(currentFragment != null){
+            LogUtils.e(TAG, "ft.detach(currentFragment)");
+            ft.remove(currentFragment);
+            currentFragment=null;
+        }
         if(cf == null){
+            LogUtils.e(TAG,"cf == null");
             try {
-                cf = (Fragment) fragment.newInstance();
+                cf = fragment;
                 if(bundle != null)
                     cf.setArguments(bundle);
-            } catch (InstantiationException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 throw new RuntimeException("初始化fragment失败");
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
             }
-            ft.add(contentId, cf, tag);
+            ft.replace(contentId, cf, tag);
         }else{
             if(cf == currentFragment)
                 return;
@@ -197,7 +192,6 @@ public abstract class BaseActivity extends AppCompatActivity{
                 ft.attach(cf);
             }
         }
-
         ft.commit();
         currentFragment = cf;
     }

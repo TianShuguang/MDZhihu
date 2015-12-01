@@ -27,7 +27,7 @@ public abstract class BaseFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        app= (ZhihuApp) getActivity().getApplication();
+        app= ZhihuApp.getApp();
     }
 
     @Nullable
