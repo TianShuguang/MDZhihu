@@ -144,7 +144,7 @@ public abstract class BaseActivity extends AppCompatActivity{
         currentFragment = cf;
         FragmentTransaction ft = fm.beginTransaction();
         //replace替换当前的viewGroup内容,add则不替换会依次累加
-        ft.add(contentId, cf, tag);
+        ft.replace(contentId, cf, tag);
         ft.commit();
 
     }

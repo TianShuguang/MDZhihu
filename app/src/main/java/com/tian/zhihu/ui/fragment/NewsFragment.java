@@ -1,6 +1,9 @@
 package com.tian.zhihu.ui.fragment;
 
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.tian.zhihu.R;
@@ -11,9 +14,13 @@ import com.tian.zhihu.network.UIDataListener;
 import com.tian.zhihu.network.api.GetThemeContentHelper;
 import com.tian.zhihu.network.api.GetThemeHelper;
 import com.tian.zhihu.network.bean.ThemeContent;
+import com.tian.zhihu.network.bean.ThemeStory;
 import com.tian.zhihu.network.bean.ZhihuThemeList;
+import com.tian.zhihu.ui.adapter.NewsAdapter;
 import com.tian.zhihu.utils.LogUtils;
 import com.tian.zhihu.utils.ValueUtils;
+
+import java.util.ArrayList;
 
 /**
  * Created by tianshuguang on 15/12/1.
@@ -26,6 +33,10 @@ public class NewsFragment extends BaseFragment implements UIDataListener<ThemeCo
     private static String name="";
 
     private NetworkHelper<ThemeContent> themeContentHelper;
+
+    private RecyclerView news_list;
+    private NewsAdapter adapter;
+    private ArrayList<ThemeStory> mList=new ArrayList<ThemeStory>();
 
     public static NewsFragment newInstance(String mPosition,String mName){
         NewsFragment fragment=new NewsFragment();
@@ -46,6 +57,15 @@ public class NewsFragment extends BaseFragment implements UIDataListener<ThemeCo
     @Override
     protected void initView(View view) {
 
+        // 拿到RecyclerView
+        news_list= (RecyclerView) view.findViewById(R.id.news_list);
+        // 设置LinearLayoutManager
+        news_list.setLayoutManager(new LinearLayoutManager(getActivity()));
+        // 设置ItemAnimator
+        news_list.setItemAnimator(new DefaultItemAnimator());
+        // 设置固定大小
+        news_list.setHasFixedSize(true);
+
     }
 
     @Override
@@ -61,8 +81,12 @@ public class NewsFragment extends BaseFragment implements UIDataListener<ThemeCo
 
     @Override
     public void onDataChanged(ThemeContent data) {
+        mList.clear();
         if (ValueUtils.isNotEmpty(data)){
             LogUtils.d("data.stories.size()",""+data.stories.size());
+            mList=data.stories;
+            adapter=new NewsAdapter(getActivity(),mList);
+            news_list.setAdapter(adapter);
         }
     }
 

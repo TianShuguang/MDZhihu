@@ -61,6 +61,7 @@ public class SplashActivity extends BaseActivity implements UIDataListener<Start
     @Override
     public void onErrorHappened(String errorCode, String errorMessage) {
         showToast("errorCode==" + errorCode + "errorMessage==" + errorMessage);
+        startActivity();
     }
 
     private void initImage(final String img) {
