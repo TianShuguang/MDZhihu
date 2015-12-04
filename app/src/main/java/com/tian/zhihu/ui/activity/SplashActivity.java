@@ -67,10 +67,10 @@ public class SplashActivity extends BaseActivity implements UIDataListener<Start
     private void initImage(final String imgUrl) {
         if (ValueUtils.isStrEmpty(imgUrl)){
             img_start.setImageResource(R.mipmap.start);
+        }else{
+            mQueue=VolleyQueueController.getInstance(this).getRequestQueue();
+            img_start.setImageUrl(imgUrl, new ImageLoader(mQueue, new BitmapCache()));
         }
-        mQueue=VolleyQueueController.getInstance(this).getRequestQueue();
-        img_start.setImageUrl(imgUrl, new ImageLoader(mQueue, new BitmapCache()));
-
         // 图片动画
         Animation animation = new ScaleAnimation(1.0f, 1.2f, 1.0f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f); // 将图片放大1.2倍，从中心开始缩放
         animation.setDuration(2000); // 动画持续时间
