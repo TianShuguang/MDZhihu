@@ -104,12 +104,12 @@ public class NewsFragment extends BaseFragment implements UIDataListener<ThemeCo
         public void onItemClick(View view, int postion) {
             ThemeStory story=mList.get(postion);
             String id=story.id;
-            String title=story.title;
+//            String title=story.theme.name;
             LogUtils.e("TAG","id=="+id);
-            LogUtils.e("TAG", "title==" + title);
+//            LogUtils.e("TAG", "title==" + title);
             Bundle bundle=new Bundle();
             bundle.putString("id",id);
-            bundle.putString("title",title);
+            bundle.putString("title",name);
             goActy(NewsActivity.class,bundle);
         }
     }

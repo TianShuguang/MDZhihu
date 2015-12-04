@@ -16,6 +16,7 @@ public class ThemeStory implements Serializable{
     public String id;
     public String title;
     public ArrayList<String> images=new ArrayList<String>();
+    public ZhihuTheme theme;
 
     public ThemeStory(JSONObject jsn) throws JSONException {
         if (jsn.has("type")){
@@ -32,6 +33,9 @@ public class ThemeStory implements Serializable{
             for (int i=0;i<ja.length();i++){
                 images.add(ja.get(i).toString());
             }
+        }
+        if (jsn.has("theme")){
+            theme=new ZhihuTheme(jsn.getJSONObject("theme"));
         }
     }
 }
