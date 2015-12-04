@@ -16,6 +16,7 @@ import com.tian.zhihu.network.api.GetThemeHelper;
 import com.tian.zhihu.network.bean.ThemeContent;
 import com.tian.zhihu.network.bean.ThemeStory;
 import com.tian.zhihu.network.bean.ZhihuThemeList;
+import com.tian.zhihu.ui.activity.NewsActivity;
 import com.tian.zhihu.ui.adapter.NewsAdapter;
 import com.tian.zhihu.utils.LogUtils;
 import com.tian.zhihu.utils.ValueUtils;
@@ -50,7 +51,7 @@ public class NewsFragment extends BaseFragment implements UIDataListener<ThemeCo
         setContentLayout(R.layout.frag_news);
 
         LogUtils.e("MENU_POSITION", "position==" + themdId);
-        LogUtils.e("MENU_NAME","name=="+name);
+        LogUtils.e("MENU_NAME", "name==" + name);
         getZhihuTheme(themdId);
     }
 
@@ -76,7 +77,7 @@ public class NewsFragment extends BaseFragment implements UIDataListener<ThemeCo
     private void getZhihuTheme(String themeId){
         themeContentHelper=new GetThemeContentHelper(getActivity());
         themeContentHelper.setUiDataListener(this);
-        themeContentHelper.sendPostRequest(AppConstant.BaseUrl + AppConstant.method_themes_content+themeId, null);
+        themeContentHelper.sendPostRequest(AppConstant.BaseUrl + AppConstant.method_themes_content + themeId, null);
     }
 
     @Override
@@ -87,11 +88,29 @@ public class NewsFragment extends BaseFragment implements UIDataListener<ThemeCo
             mList=data.stories;
             adapter=new NewsAdapter(getActivity(),mList);
             news_list.setAdapter(adapter);
+
+            this.adapter.setOnItemClickListener(new ItemClickListener());
         }
     }
 
     @Override
     public void onErrorHappened(String errorCode, String errorMessage) {
 
+    }
+
+    class ItemClickListener implements NewsAdapter.RecyclerItemClickListener {
+
+        @Override
+        public void onItemClick(View view, int postion) {
+            ThemeStory story=mList.get(postion);
+            String id=story.id;
+            String title=story.title;
+            LogUtils.e("TAG","id=="+id);
+            LogUtils.e("TAG", "title==" + title);
+            Bundle bundle=new Bundle();
+            bundle.putString("id",id);
+            bundle.putString("title",title);
+            goActy(NewsActivity.class,bundle);
+        }
     }
 }

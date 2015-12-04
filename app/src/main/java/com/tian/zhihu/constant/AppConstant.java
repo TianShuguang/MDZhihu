@@ -16,7 +16,7 @@ public interface AppConstant {
     /**3. 最新消息*/
     String method_news="api/4/news/latest";
     /**4. 消息内容获取与离线下载*/
-    String method_news_content="api/4/news/3892357";
+    String method_news_content="api/4/news/";
     /**5. 过往消息*/
     String method_news_before="api/4/news/before/20131119";
     /**6. 新闻额外信息*/

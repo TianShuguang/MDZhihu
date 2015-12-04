@@ -216,6 +216,8 @@ public abstract class BaseActivity extends AppCompatActivity{
             intent.putExtras(data);
         }
         startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in,
+                android.R.anim.fade_out);
     }
 
     public void goActyForResult(Class acty, int requestCode) {
@@ -228,6 +230,8 @@ public abstract class BaseActivity extends AppCompatActivity{
             intent.putExtras(data);
         }
         startActivityForResult(intent, requestCode);
+        overridePendingTransition(android.R.anim.fade_in,
+                android.R.anim.fade_out);
     }
     /*********************************Activity跳转*******END************************************/
 

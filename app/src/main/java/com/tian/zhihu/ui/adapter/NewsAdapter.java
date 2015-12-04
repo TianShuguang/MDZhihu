@@ -28,6 +28,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MViewHolder>{
     private RequestQueue mQueue;
     private ImageLoader mImageLoader;
 
+    private RecyclerItemClickListener mListener;
+
 
     public NewsAdapter(Context context, ArrayList<ThemeStory> list) {
         this.mContext = context;
@@ -65,7 +67,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MViewHolder>{
     }
 
     // 重写的自定义ViewHolder
-    public static class MViewHolder extends RecyclerView.ViewHolder{
+    public class MViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView mTextView;
 
         public ImageView mImageView;
@@ -74,6 +76,27 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MViewHolder>{
             super(itemView);
             mTextView = (TextView) itemView.findViewById(R.id.name);
             mImageView = (ImageView) itemView.findViewById(R.id.pic);
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            if(mListener != null){
+                mListener.onItemClick(v,getPosition());
+            }
+        }
+    }
+
+
+    /**
+     * 设置Item点击监听
+     * @param listener
+     */
+    public void setOnItemClickListener(RecyclerItemClickListener listener){
+        this.mListener = listener;
+    }
+
+    public interface RecyclerItemClickListener {
+        public void onItemClick(View view,int postion);
     }
 }
