@@ -1,5 +1,13 @@
 # MDZhihu
 高仿知乎日报
 
-知乎日报API
-https://github.com/iKrelve/KuaiHu/blob/master/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5API.md
+参考网址：
+1.volley二次封装
+  http://www.cnblogs.com/summers/p/4398679.html
+2.项目实战①—高仿知乎日报（1）逼真的开场动画
+  http://blog.csdn.net/jack_king007/article/details/41751573
+3.高仿知乎日报
+  https://github.com/iKrelve/KuaiHu
+
+站在巨人对肩膀上，对以上作者表示感谢！！！
+  
