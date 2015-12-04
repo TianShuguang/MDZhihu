@@ -455,26 +455,11 @@ body.night,
   text-decoration: none;
 }
 .highlight {
-  width: auto;
   overflow: auto;
   word-wrap: normal;
-}
-.highlight::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-.highlight code {
-  overflow: auto;
-}
-.highlight::-webkit-scrollbar-thumb:horizontal {
-  border-radius: 6px;
-  background-color: rgba(0,0,0,.5);
-}
-.highlight::-webkit-scrollbar-thumb:horizontal:hover {
-  background-color: rgba(0,0,0,.6);
+  background: #fff;
 }
 .highlight pre {
-  margin: 0;
   white-space: pre;
 }
 .highlight .hll {

@@ -3,6 +3,7 @@ package com.tian.zhihu.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -35,11 +36,17 @@ public class NewsActivity extends BaseActivity implements UIDataListener<NewsCon
 
         setSupportActionBar(base_toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(""+title);
+            getSupportActionBar().setTitle("" + title);
             // 给左上角图标的左边加上一个返回的图标
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             //必须通过调用setHomeButtonEnabled(true)方法确保这个图标能够作为一个操作项
             getSupportActionBar().setHomeButtonEnabled(true);
+            base_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
         }
 
         initWebView();
@@ -72,21 +79,14 @@ public class NewsActivity extends BaseActivity implements UIDataListener<NewsCon
 
         // 增加手动放大效果
         WebSettings webSettings = news_webview.getSettings();
-        webSettings.setDefaultTextEncodingName("utf-8") ;
-        // webSettings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);//缩放成单列
-        webSettings.setBuiltInZoomControls(true);// 支持两指缩放
-        webSettings.setUseWideViewPort(true);// 支持双击缩放
-        webSettings.setLoadWithOverviewMode(true);// 设置全屏
-        // 增加对JS的支持
         webSettings.setJavaScriptEnabled(true);
-        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);//
-        // 响应gps权限
-        webSettings.setDatabaseEnabled(true);
-        String dir = this.getApplicationContext()
-                .getDir("database", Context.MODE_PRIVATE).getPath();
-        webSettings.setGeolocationEnabled(true);
-        webSettings.setGeolocationDatabasePath(dir);
+        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        // 开启DOM storage API 功能
         webSettings.setDomStorageEnabled(true);
+        // 开启database storage API功能
+        webSettings.setDatabaseEnabled(true);
+        // 开启Application Cache功能
+        webSettings.setAppCacheEnabled(true);
     }
 
     @Override
