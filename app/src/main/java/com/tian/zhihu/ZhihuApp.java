@@ -1,18 +1,9 @@
 package com.tian.zhihu;
 
 import android.app.Application;
-import android.content.Context;
 
-import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.tian.zhihu.base.BaseActivity;
 
-import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +29,6 @@ public class ZhihuApp extends Application{
         super.onCreate();
         appInstance=this;
 
-        initImageLoader(getApplicationContext());
 
     }
 
@@ -69,20 +59,5 @@ public class ZhihuApp extends Application{
                 a.finish();
             }
         }
-    }
-
-    private void initImageLoader(Context context) {
-        File cacheDir = StorageUtils.getCacheDirectory(context);
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-                context).threadPoolSize(3)
-                .threadPriority(Thread.NORM_PRIORITY - 2)
-                .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
-                .denyCacheImageMultipleSizesInMemory()
-                .diskCacheFileNameGenerator(new Md5FileNameGenerator())
-                .tasksProcessingOrder(QueueProcessingType.LIFO)
-                .diskCache(new UnlimitedDiskCache(cacheDir)).writeDebugLogs()
-                .build();
-        ImageLoader.getInstance().init(config);
-
     }
 }
