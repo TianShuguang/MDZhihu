@@ -30,5 +30,7 @@ public interface AppConstant {
     String method_themes="api/4/themes";
     /**10. 主题日报内容查看*/
     String method_themes_content="api/4/theme/";
+    /**11. 热门消息*/
+    String method_news_hot="api/3/news/hot";
 
 }

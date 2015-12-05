@@ -40,7 +40,7 @@ public class SplashActivity extends BaseActivity implements UIDataListener<Start
         LogUtils.e(TAG, "acty_splash");
         imageHelper=new GetStartImageHelper(this);
         imageHelper.setUiDataListener(this);
-        imageHelper.sendPostRequest(AppConstant.BaseUrl + AppConstant.method_startimage, null);
+        imageHelper.sendPostRequest(AppConstant.method_startimage);
     }
 
     @Override

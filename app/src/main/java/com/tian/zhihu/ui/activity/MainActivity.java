@@ -29,6 +29,8 @@ import com.tian.zhihu.network.bean.StartImage;
 import com.tian.zhihu.network.bean.ZhihuTheme;
 import com.tian.zhihu.network.bean.ZhihuThemeList;
 import com.tian.zhihu.ui.adapter.MenuItemAdapter;
+import com.tian.zhihu.ui.fragment.FavoriteFragment;
+import com.tian.zhihu.ui.fragment.MainHotFragment;
 import com.tian.zhihu.ui.fragment.NewsFragment;
 import com.tian.zhihu.utils.LogUtils;
 import com.tian.zhihu.utils.ValueUtils;
@@ -94,6 +96,9 @@ public class MainActivity extends BaseActivity implements UIDataListener<ZhihuTh
         //该方法会自动和actionBar关联, 将开关的图片显示在了action上，如果不设置，也可以有抽屉的效果，不过是默认的图标
         drawerToggle.syncState();
 
+        MainHotFragment hotFrag=new MainHotFragment();
+        showFragment(hotFrag, null, R.id.main_content);
+
         getZhihuTheme();
     }
 
@@ -137,15 +142,7 @@ public class MainActivity extends BaseActivity implements UIDataListener<ZhihuTh
     private void getZhihuTheme(){
         themeHelper=new GetThemeHelper(this);
         themeHelper.setUiDataListener(this);
-        themeHelper.sendPostRequest(AppConstant.BaseUrl + AppConstant.method_themes, null);
-    }
-
-    private void setMenuList()
-    {
-        LogUtils.e(TAG,"mList.size()=="+mList.size());
-        adapter=new MenuItemAdapter(MainActivity.this,mList);
-        navi_listview.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        themeHelper.sendPostRequest(AppConstant.method_themes);
     }
 
     @Override
@@ -194,13 +191,21 @@ public class MainActivity extends BaseActivity implements UIDataListener<ZhihuTh
     public void onDataChanged(ZhihuThemeList data) {
         if (ValueUtils.isNotEmpty(data)){
             mList=data.others;
-            String themeId=mList.get(0).id;
-            String name=mList.get(0).name;
-            getSupportActionBar().setTitle(""+name);
-            NewsFragment fragment=NewsFragment.newInstance(themeId,name);
-            showFragment(fragment,null, R.id.main_content);
+//            String themeId=mList.get(0).id;
+//            String name=mList.get(0).name;
+//            getSupportActionBar().setTitle(""+name);
+//            NewsFragment fragment=NewsFragment.newInstance(themeId,name);
+//            showFragment(fragment,null, R.id.main_content);
             setMenuList();
         }
+    }
+
+    private void setMenuList()
+    {
+        LogUtils.e(TAG,"mList.size()=="+mList.size());
+        adapter=new MenuItemAdapter(MainActivity.this,mList);
+        navi_listview.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -210,18 +215,24 @@ public class MainActivity extends BaseActivity implements UIDataListener<ZhihuTh
 
     @Override
     public void onClick(View v) {
+        drawerLayout.closeDrawers();
         switch (v.getId()){
             case R.id.navi_login_layout:
                 LogUtils.e(TAG,"navi_login_layout");
                 break;
             case R.id.navi_tv_backup:
                 LogUtils.e(TAG,"navi_tv_backup");
+                FavoriteFragment favoriteFrag=new FavoriteFragment();
+                showFragment(favoriteFrag,null, R.id.main_content);
                 break;
             case R.id.navi_tv_download:
                 LogUtils.e(TAG,"navi_tv_download");
                 break;
             case R.id.navi_tv_main:
                 LogUtils.e(TAG,"navi_tv_main");
+                getSupportActionBar().setTitle(""+R.string.app_name);
+                MainHotFragment hotFrag=new MainHotFragment();
+                showFragment(hotFrag, null, R.id.main_content);
                 break;
         }
     }

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.tian.zhihu.constant.AppConstant;
 import com.tian.zhihu.utils.LogUtils;
 
 import org.json.JSONObject;
@@ -27,19 +28,17 @@ public abstract class NetworkHelper<T> implements Response.Listener<JSONObject>,
         this.context = context;
     }
 
-    protected NetworkRequest getRequestForPost(String url, Map<String, String> params)
+    public void sendPostRequest(String method_url)
     {
-        LogUtils.e("NetworkRequest",url);
-        return new NetworkRequest(Request.Method.GET, url, params, this, this);
-    }
-
-    public void sendPostRequest(String url, Map<String, String> params)
-    {
-        NetworkRequest request=getRequestForPost(url, params);
+        NetworkRequest request=getRequestForPost(AppConstant.BaseUrl + method_url);
         VolleyQueueController.getInstance(getContext()).addToRequestQueue(request);
     }
 
-
+    protected NetworkRequest getRequestForPost(String url)
+    {
+        LogUtils.e("NetworkRequest", url);
+        return new NetworkRequest(url, this, this);
+    }
 
     @Override
     public void onErrorResponse(VolleyError error) {

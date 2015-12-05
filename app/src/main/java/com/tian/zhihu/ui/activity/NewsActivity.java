@@ -53,7 +53,7 @@ public class NewsActivity extends BaseActivity implements UIDataListener<NewsCon
 
         newsHelper=new GetNewsHelper(this);
         newsHelper.setUiDataListener(this);
-        newsHelper.sendPostRequest(AppConstant.BaseUrl + AppConstant.method_news_content+id, null);
+        newsHelper.sendPostRequest(AppConstant.method_news_content+id);
     }
 
     private void initBundleData(){

@@ -27,37 +27,14 @@ public class NetworkRequest extends JsonRequest<JSONObject>{
         this.mPriority = mPriority;
     }
 
-    public NetworkRequest(int method, String url, Map<String, String> params, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+    public NetworkRequest(int method, String url, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
 
-        super(method, url, paramstoString(params), listener, errorListener);
+        super(method, url, null, listener, errorListener);
     }
 
     public NetworkRequest(String url, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener)
     {
-        this(Method.GET, url, null, listener, errorListener);
-    }
-
-    private static String paramstoString(Map<String, String> params)
-    {
-        if (params != null && params.size() > 0)
-        {
-            String paramsEncoding = "UTF-8";
-            StringBuilder encodedParams = new StringBuilder();
-            try
-            {
-                for (Map.Entry<String, String> entry : params.entrySet())
-                {
-                    encodedParams.append(URLEncoder.encode(entry.getKey(),paramsEncoding));
-                    encodedParams.append('=');
-                    encodedParams.append(URLEncoder.encode(entry.getValue(), paramsEncoding));
-                    encodedParams.append('&');
-                }
-                return encodedParams.toString();
-            }catch (UnsupportedEncodingException uee){
-                throw new RuntimeException("Encoding not supported: "+ paramsEncoding, uee);
-            }
-        }
-        return null;
+        this(Method.GET, url, listener, errorListener);
     }
 
     @Override
