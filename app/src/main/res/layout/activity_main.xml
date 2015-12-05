@@ -14,16 +14,11 @@
 
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/main_menu_list"
-        android:layout_width="match_parent"
+    <!-- 左侧滑动栏 -->
+    <RelativeLayout
+        android:id="@+id/main_menu"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:paddingTop="0dp"
-        android:background="#ffffffff"
-        android:clipToPadding="false"
-        android:divider="@null"
-        android:scrollbars="none"
-        android:listSelector="?attr/selectableItemBackground"/>
-
+        android:background="@android:color/transparent" />
 </android.support.v4.widget.DrawerLayout>
