@@ -99,7 +99,7 @@ public class NewsFragment extends BaseFragment implements UIDataListener<ThemeCo
 
         @Override
         public void onItemClick(View view, int postion) {
-            ThemeStory story=mList.get(postion);
+            ThemeStory story=mList.get(postion-1);
             String id=story.id;
             LogUtils.e("TAG","id=="+id);
             LogUtils.e("TAG", "title==" + name);

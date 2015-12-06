@@ -87,7 +87,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     }
 
     private ThemeStory getItem(int position) {
-        return mContent.stories.get(position);
+        return mContent.stories.get(position-1);
     }
 
     @Override
