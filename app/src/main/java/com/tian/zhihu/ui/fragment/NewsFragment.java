@@ -64,7 +64,6 @@ public class NewsFragment extends BaseFragment implements UIDataListener<ThemeCo
         news_list.setItemAnimator(new DefaultItemAnimator());
         // 设置固定大小
         news_list.setHasFixedSize(true);
-
     }
 
     @Override
@@ -84,7 +83,7 @@ public class NewsFragment extends BaseFragment implements UIDataListener<ThemeCo
         if (ValueUtils.isNotEmpty(data)){
             LogUtils.d("data.stories.size()",""+data.stories.size());
             mList=data.stories;
-            adapter=new NewsAdapter(getActivity(),mList);
+            adapter=new NewsAdapter(getActivity(),data);
             news_list.setAdapter(adapter);
 
             this.adapter.setOnItemClickListener(new ItemClickListener());
@@ -102,9 +101,8 @@ public class NewsFragment extends BaseFragment implements UIDataListener<ThemeCo
         public void onItemClick(View view, int postion) {
             ThemeStory story=mList.get(postion);
             String id=story.id;
-//            String title=story.theme.name;
             LogUtils.e("TAG","id=="+id);
-//            LogUtils.e("TAG", "title==" + title);
+            LogUtils.e("TAG", "title==" + name);
             Bundle bundle=new Bundle();
             bundle.putString("id",id);
             bundle.putString("title",name);
