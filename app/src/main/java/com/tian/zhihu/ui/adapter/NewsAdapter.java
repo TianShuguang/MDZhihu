@@ -70,7 +70,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             if (ValueUtils.isListNotEmpty(story.images)) {
                 itemHolder.mImageView.setVisibility(View.VISIBLE);
                 //使用volley自带ImageLoader显示图片
-                ImageLoader.ImageListener listener = ImageLoader.getImageListener(itemHolder.mImageView, R.mipmap.ic_launcher, R.mipmap.ic_launcher);
+                ImageLoader.ImageListener listener = ImageLoader.getImageListener(itemHolder.mImageView, R.mipmap.default_pic, R.mipmap.default_pic);
                 mImageLoader.get(story.images.get(0), listener);
             }else{
                 itemHolder.mImageView.setVisibility(View.GONE);

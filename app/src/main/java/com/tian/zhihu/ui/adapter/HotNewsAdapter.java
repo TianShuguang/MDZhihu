@@ -53,7 +53,7 @@ public class HotNewsAdapter extends RecyclerView.Adapter<HotNewsAdapter.MViewHol
         if (ValueUtils.isStrNotEmpty(news.thumbnail)) {
             holder.mImageView.setVisibility(View.VISIBLE);
             //使用volley自带ImageLoader显示图片
-            ImageLoader.ImageListener listener = ImageLoader.getImageListener(holder.mImageView, R.mipmap.ic_launcher, R.mipmap.ic_launcher);
+            ImageLoader.ImageListener listener = ImageLoader.getImageListener(holder.mImageView, R.mipmap.default_pic, R.mipmap.default_pic);
             mImageLoader.get(news.thumbnail, listener);
         }else{
             holder.mImageView.setVisibility(View.GONE);

@@ -34,6 +34,7 @@ import com.tian.zhihu.ui.adapter.MenuItemAdapter;
 import com.tian.zhihu.ui.fragment.FavoriteFragment;
 import com.tian.zhihu.ui.fragment.MainHotFragment;
 import com.tian.zhihu.ui.fragment.NewsFragment;
+import com.tian.zhihu.ui.fragment.SettingFragment;
 import com.tian.zhihu.utils.DouleClickExitUtils;
 import com.tian.zhihu.utils.LogUtils;
 import com.tian.zhihu.utils.ValueUtils;
@@ -45,8 +46,9 @@ public class MainActivity extends BaseActivity implements UIDataListener<ZhihuTh
 
     private RelativeLayout main_menu;
     private LinearLayout navi_login_layout;
-    private TextView navi_tv_backup;
-    private TextView navi_tv_download;
+    private TextView navi_tv_collect;
+    private TextView navi_tv_night;
+    private TextView navi_tv_setting;
     private TextView navi_tv_main;
 
     private ListView navi_listview;
@@ -111,13 +113,15 @@ public class MainActivity extends BaseActivity implements UIDataListener<ZhihuTh
         main_menu= (RelativeLayout) this.findViewById(R.id.main_menu);
         View view = LayoutInflater.from(this).inflate(R.layout.frag_navigationdrawer, null);
         navi_login_layout= (LinearLayout) view.findViewById(R.id.navi_login_layout);
-        navi_tv_backup= (TextView) view.findViewById(R.id.navi_tv_backup);
-        navi_tv_download= (TextView) view.findViewById(R.id.navi_tv_download);
+        navi_tv_collect= (TextView) view.findViewById(R.id.navi_tv_collect);
+        navi_tv_night= (TextView) view.findViewById(R.id.navi_tv_night);
+        navi_tv_setting= (TextView) view.findViewById(R.id.navi_tv_setting);
         navi_tv_main= (TextView) view.findViewById(R.id.navi_tv_main);
         navi_listview= (ListView) view.findViewById(R.id.navi_listview);
         navi_login_layout.setOnClickListener(this);
-        navi_tv_backup.setOnClickListener(this);
-        navi_tv_download.setOnClickListener(this);
+        navi_tv_collect.setOnClickListener(this);
+        navi_tv_night.setOnClickListener(this);
+        navi_tv_setting.setOnClickListener(this);
         navi_tv_main.setOnClickListener(this);
 
         main_menu.addView(view);
@@ -153,7 +157,7 @@ public class MainActivity extends BaseActivity implements UIDataListener<ZhihuTh
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -168,9 +172,7 @@ public class MainActivity extends BaseActivity implements UIDataListener<ZhihuTh
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -220,13 +222,20 @@ public class MainActivity extends BaseActivity implements UIDataListener<ZhihuTh
             case R.id.navi_login_layout:
                 LogUtils.e(TAG,"navi_login_layout");
                 break;
-            case R.id.navi_tv_backup:
-                LogUtils.e(TAG,"navi_tv_backup");
+            case R.id.navi_tv_collect:
+                LogUtils.e(TAG,"navi_tv_collect");
+                getSupportActionBar().setTitle("收藏");
                 FavoriteFragment favoriteFrag=new FavoriteFragment();
                 showFragment(favoriteFrag,null, R.id.main_content);
                 break;
-            case R.id.navi_tv_download:
-                LogUtils.e(TAG,"navi_tv_download");
+            case R.id.navi_tv_night:
+                LogUtils.e(TAG, "navi_tv_night");
+                break;
+            case R.id.navi_tv_setting:
+                LogUtils.e(TAG,"navi_tv_setting");
+                getSupportActionBar().setTitle("设置");
+                SettingFragment settingFragment=new SettingFragment();
+                showFragment(settingFragment,null, R.id.main_content);
                 break;
             case R.id.navi_tv_main:
                 LogUtils.e(TAG,"navi_tv_main");
