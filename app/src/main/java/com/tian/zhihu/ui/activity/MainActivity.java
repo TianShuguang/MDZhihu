@@ -191,11 +191,6 @@ public class MainActivity extends BaseActivity implements UIDataListener<ZhihuTh
     public void onDataChanged(ZhihuThemeList data) {
         if (ValueUtils.isNotEmpty(data)){
             mList=data.others;
-//            String themeId=mList.get(0).id;
-//            String name=mList.get(0).name;
-//            getSupportActionBar().setTitle(""+name);
-//            NewsFragment fragment=NewsFragment.newInstance(themeId,name);
-//            showFragment(fragment,null, R.id.main_content);
             setMenuList();
         }
     }
@@ -230,7 +225,7 @@ public class MainActivity extends BaseActivity implements UIDataListener<ZhihuTh
                 break;
             case R.id.navi_tv_main:
                 LogUtils.e(TAG,"navi_tv_main");
-                getSupportActionBar().setTitle(""+R.string.app_name);
+                getSupportActionBar().setTitle("首页");
                 MainHotFragment hotFrag=new MainHotFragment();
                 showFragment(hotFrag, null, R.id.main_content);
                 break;

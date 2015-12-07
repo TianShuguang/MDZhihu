@@ -3,16 +3,23 @@ package com.tian.zhihu.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.tian.zhihu.R;
 import com.tian.zhihu.base.BaseActivity;
+import com.tian.zhihu.base.BitmapCache;
 import com.tian.zhihu.constant.AppConstant;
 import com.tian.zhihu.network.NetworkHelper;
 import com.tian.zhihu.network.UIDataListener;
+import com.tian.zhihu.network.VolleyQueueController;
 import com.tian.zhihu.network.api.GetNewsHelper;
 import com.tian.zhihu.network.bean.NewsContent;
 import com.tian.zhihu.network.bean.StartImage;
@@ -23,17 +30,39 @@ import com.tian.zhihu.utils.ValueUtils;
  */
 public class NewsActivity extends BaseActivity implements UIDataListener<NewsContent> {
 
+    private NetworkImageView content_iv_top;
+    private Toolbar toolbar;
     private WebView news_webview;
 
     private NetworkHelper<NewsContent> newsHelper;
     private String id="";
     private String title="";
+    private String image="";
+
+    private RequestQueue mQueue= null;
 
     @Override
     protected void installViews() {
         setContentView(R.layout.acty_news_content);
         initBundleData();
 
+        mQueue= VolleyQueueController.getInstance(mContext).getRequestQueue();
+
+        findViews();
+
+        newsHelper=new GetNewsHelper(this);
+        newsHelper.setUiDataListener(this);
+        newsHelper.sendPostRequest(AppConstant.method_news_content+id);
+    }
+
+    private void initBundleData(){
+        Bundle bundle= getIntent().getExtras();
+        id=bundle.getString("id");
+        title=bundle.getString("title");
+        image=bundle.getString("image");
+    }
+
+    private void findViews(){
         setSupportActionBar(base_toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("" + title);
@@ -48,21 +77,20 @@ public class NewsActivity extends BaseActivity implements UIDataListener<NewsCon
                 }
             });
         }
-
+        content_iv_top= (NetworkImageView) this.findViewById(R.id.content_iv_top);
+//        CollapsingToolbarLayout mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+//        mCollapsingToolbarLayout.setTitle(""+title);
         initWebView();
-
-        newsHelper=new GetNewsHelper(this);
-        newsHelper.setUiDataListener(this);
-        newsHelper.sendPostRequest(AppConstant.method_news_content+id);
-    }
-
-    private void initBundleData(){
-        Bundle bundle= getIntent().getExtras();
-        id=bundle.getString("id");
-        title=bundle.getString("title");
     }
 
     private void loadUrl(String url){
+        if (ValueUtils.isStrNotEmpty(image)){
+            content_iv_top.setImageUrl(image, new ImageLoader(mQueue, new BitmapCache()));
+        }else{
+            content_iv_top.setImageResource(R.mipmap.ic_launcher);
+        }
+
+
         if (ValueUtils.isEmpty(news_webview)){
             initWebView();
         }
@@ -98,6 +126,7 @@ public class NewsActivity extends BaseActivity implements UIDataListener<NewsCon
     public void onDataChanged(NewsContent data) {
         if (ValueUtils.isNotEmpty(data)){
             String content=data.body;
+
             loadUrl(content);
         }
     }

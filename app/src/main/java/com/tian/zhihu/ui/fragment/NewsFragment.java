@@ -48,14 +48,11 @@ public class NewsFragment extends BaseFragment implements UIDataListener<ThemeCo
     protected void createView() {
         setContentLayout(R.layout.frag_news);
 
-        LogUtils.e("MENU_POSITION", "position==" + themdId);
-        LogUtils.e("MENU_NAME", "name==" + name);
         getZhihuTheme(themdId);
     }
 
     @Override
     protected void initView(View view) {
-
         // 拿到RecyclerView
         news_list= (RecyclerView) view.findViewById(R.id.news_list);
         // 设置LinearLayoutManager
@@ -101,11 +98,16 @@ public class NewsFragment extends BaseFragment implements UIDataListener<ThemeCo
         public void onItemClick(View view, int postion) {
             ThemeStory story=mList.get(postion-1);
             String id=story.id;
+            String image="";
+            if (ValueUtils.isListNotEmpty(story.images)){
+                image=story.images.get(0);
+            }
             LogUtils.e("TAG","id=="+id);
             LogUtils.e("TAG", "title==" + name);
             Bundle bundle=new Bundle();
             bundle.putString("id",id);
             bundle.putString("title",name);
+            bundle.putString("image",image);
             goActy(NewsActivity.class,bundle);
         }
     }
