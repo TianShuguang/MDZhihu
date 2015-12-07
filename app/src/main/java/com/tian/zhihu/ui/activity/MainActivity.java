@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
@@ -32,6 +34,7 @@ import com.tian.zhihu.ui.adapter.MenuItemAdapter;
 import com.tian.zhihu.ui.fragment.FavoriteFragment;
 import com.tian.zhihu.ui.fragment.MainHotFragment;
 import com.tian.zhihu.ui.fragment.NewsFragment;
+import com.tian.zhihu.utils.DouleClickExitUtils;
 import com.tian.zhihu.utils.LogUtils;
 import com.tian.zhihu.utils.ValueUtils;
 
@@ -58,6 +61,8 @@ public class MainActivity extends BaseActivity implements UIDataListener<ZhihuTh
      */
     private ActionBarDrawerToggle drawerToggle;
 
+    private DouleClickExitUtils doubleClick;
+
     @Override
     protected void installViews() {
         setContentView(R.layout.activity_main);
@@ -71,7 +76,7 @@ public class MainActivity extends BaseActivity implements UIDataListener<ZhihuTh
             //必须通过调用setHomeButtonEnabled(true)方法确保这个图标能够作为一个操作项
             getSupportActionBar().setHomeButtonEnabled(true);
         }
-
+        doubleClick=new DouleClickExitUtils(this);
         findViews();
     }
 
@@ -130,10 +135,10 @@ public class MainActivity extends BaseActivity implements UIDataListener<ZhihuTh
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 drawerLayout.closeDrawers();
                 LogUtils.e(TAG, "position==" + position);
-                String themeId=mList.get(position).id;
-                String name=mList.get(position).name;
-                getSupportActionBar().setTitle(""+name);
-                NewsFragment fragment=NewsFragment.newInstance(themeId,name);
+                String themeId = mList.get(position).id;
+                String name = mList.get(position).name;
+                getSupportActionBar().setTitle("" + name);
+                NewsFragment fragment = NewsFragment.newInstance(themeId, name);
                 replaceFragment(fragment, null, R.id.main_content);
             }
         });
@@ -230,5 +235,21 @@ public class MainActivity extends BaseActivity implements UIDataListener<ZhihuTh
                 showFragment(hotFrag, null, R.id.main_content);
                 break;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Fragment fragment=this.getCurrentFragment();
+        if (fragment instanceof MainHotFragment){
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                //双击退出
+                doubleClick.onKeyDown(keyCode, event);
+            }
+        }else{
+            getSupportActionBar().setTitle("首页");
+            MainHotFragment hotFrag=new MainHotFragment();
+            showFragment(hotFrag, null, R.id.main_content);
+        }
+        return true;
     }
 }

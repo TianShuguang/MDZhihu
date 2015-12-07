@@ -4,4 +4,6 @@
 
     <string name="navigation_drawer_open">open</string>
     <string name="navigation_drawer_close">close</string>
+
+    <string name="tip_double_click_exit">再按一次退出程序</string>
 </resources>
