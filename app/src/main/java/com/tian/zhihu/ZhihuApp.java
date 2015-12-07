@@ -28,11 +28,8 @@ public class ZhihuApp extends Application{
     public void onCreate() {
         super.onCreate();
         appInstance=this;
-
-
     }
-
-
+    
     /** Activity管理*/
     public void add(BaseActivity a) {
         WeakReference<BaseActivity> w = new WeakReference<BaseActivity>(a);
