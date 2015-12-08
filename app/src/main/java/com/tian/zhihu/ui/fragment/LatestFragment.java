@@ -35,10 +35,10 @@ public class LatestFragment extends BaseFragment implements UIDataListener<Lates
     @Override
     protected void createView() {
         setContentLayout(R.layout.frag_news);
-        getHotNews();
+        getLatestNews();
     }
 
-    private void getHotNews(){
+    private void getLatestNews(){
         latestHelper=new GetLatestHelper(getActivity());
         latestHelper.setUiDataListener(this);
         latestHelper.sendPostRequest(AppConstant.method_latest);
