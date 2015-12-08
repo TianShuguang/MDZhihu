@@ -13,6 +13,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.tian.zhihu.R;
 import com.tian.zhihu.base.BitmapCache;
 import com.tian.zhihu.network.VolleyQueueController;
+import com.tian.zhihu.network.bean.LatestBean;
 import com.tian.zhihu.network.bean.LatestStory;
 import com.tian.zhihu.utils.ValueUtils;
 
@@ -24,16 +25,20 @@ import java.util.ArrayList;
 public class LatestAdapter extends RecyclerView.Adapter<LatestAdapter.MViewHolder>{
 
     private Context mContext;
-    private ArrayList<LatestStory> mList=new ArrayList<LatestStory>();
+    private LatestBean mBean;
+    private ArrayList<LatestStory> stories=new ArrayList<LatestStory>();
+    private ArrayList<LatestStory> top_stories=new ArrayList<LatestStory>();
     private RequestQueue mQueue;
     private ImageLoader mImageLoader;
 
     private RecyclerItemClickListener mListener;
 
 
-    public LatestAdapter(Context context, ArrayList<LatestStory> list) {
+    public LatestAdapter(Context context, LatestBean bean) {
         this.mContext = context;
-        this.mList = list;
+        this.mBean = bean;
+        stories=mBean.stories;
+        top_stories=mBean.top_stories;
         this.mQueue= VolleyQueueController.getInstance(mContext).getRequestQueue();
         mImageLoader=new ImageLoader(mQueue,new BitmapCache());
     }
@@ -47,7 +52,7 @@ public class LatestAdapter extends RecyclerView.Adapter<LatestAdapter.MViewHolde
 
     @Override
     public void onBindViewHolder(MViewHolder holder, int position) {
-        LatestStory latest = mList.get(position);
+        LatestStory latest = stories.get(position);
         holder.mTextView.setText(latest.title);
         if (ValueUtils.isListNotEmpty(latest.images)) {
             holder.mImageView.setVisibility(View.VISIBLE);
@@ -63,7 +68,7 @@ public class LatestAdapter extends RecyclerView.Adapter<LatestAdapter.MViewHolde
     @Override
     public int getItemCount() {
         // 返回数据总数
-        return mList == null ? 0 : mList.size();
+        return stories == null ? 0 : stories.size();
     }
 
     // 重写的自定义ViewHolder

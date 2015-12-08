@@ -31,6 +31,7 @@ public class LatestFragment extends BaseFragment implements UIDataListener<Lates
     private RecyclerView news_list;
     private LatestAdapter adapter;
     private ArrayList<LatestStory> mList=new ArrayList<LatestStory>();
+    private LatestBean latestBean;
 
     @Override
     protected void createView() {
@@ -65,9 +66,10 @@ public class LatestFragment extends BaseFragment implements UIDataListener<Lates
     public void onDataChanged(LatestBean data) {
         mList.clear();
         if (ValueUtils.isNotEmpty(data)){
+            latestBean=data;
             LogUtils.d("data.stories.size()", "" + data.stories.size());
             mList=data.stories;
-            adapter=new LatestAdapter(getActivity(),mList);
+            adapter=new LatestAdapter(getActivity(),latestBean);
             news_list.setAdapter(adapter);
 
             this.adapter.setOnItemClickListener(new ItemClickListener());
