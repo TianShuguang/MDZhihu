@@ -11,11 +11,11 @@ import com.tian.zhihu.base.BaseFragment;
 import com.tian.zhihu.constant.AppConstant;
 import com.tian.zhihu.network.NetworkHelper;
 import com.tian.zhihu.network.UIDataListener;
-import com.tian.zhihu.network.api.GetHotNewsHelper;
-import com.tian.zhihu.network.bean.HotNews;
-import com.tian.zhihu.network.bean.HotNewsList;
+import com.tian.zhihu.network.api.GetLatestHelper;
+import com.tian.zhihu.network.bean.LatestBean;
+import com.tian.zhihu.network.bean.LatestStory;
 import com.tian.zhihu.ui.activity.NewsActivity;
-import com.tian.zhihu.ui.adapter.HotNewsAdapter;
+import com.tian.zhihu.ui.adapter.LatestAdapter;
 import com.tian.zhihu.utils.LogUtils;
 import com.tian.zhihu.utils.ValueUtils;
 
@@ -24,13 +24,13 @@ import java.util.ArrayList;
 /**
  * Created by tianshuguang on 15/12/6.
  */
-public class MainHotFragment extends BaseFragment implements UIDataListener<HotNewsList> {
+public class LatestFragment extends BaseFragment implements UIDataListener<LatestBean> {
 
-    private NetworkHelper<HotNewsList> hotNewsHelper;
+    private NetworkHelper<LatestBean> latestHelper;
 
     private RecyclerView news_list;
-    private HotNewsAdapter adapter;
-    private ArrayList<HotNews> mList=new ArrayList<HotNews>();
+    private LatestAdapter adapter;
+    private ArrayList<LatestStory> mList=new ArrayList<LatestStory>();
 
     @Override
     protected void createView() {
@@ -39,9 +39,9 @@ public class MainHotFragment extends BaseFragment implements UIDataListener<HotN
     }
 
     private void getHotNews(){
-        hotNewsHelper=new GetHotNewsHelper(getActivity());
-        hotNewsHelper.setUiDataListener(this);
-        hotNewsHelper.sendPostRequest(AppConstant.method_news_hot);
+        latestHelper=new GetLatestHelper(getActivity());
+        latestHelper.setUiDataListener(this);
+        latestHelper.sendPostRequest(AppConstant.method_latest);
     }
 
     @Override
@@ -62,12 +62,12 @@ public class MainHotFragment extends BaseFragment implements UIDataListener<HotN
     }
 
     @Override
-    public void onDataChanged(HotNewsList data) {
+    public void onDataChanged(LatestBean data) {
         mList.clear();
         if (ValueUtils.isNotEmpty(data)){
-            LogUtils.d("data.stories.size()", "" + data.recent.size());
-            mList=data.recent;
-            adapter=new HotNewsAdapter(getActivity(),mList);
+            LogUtils.d("data.stories.size()", "" + data.stories.size());
+            mList=data.stories;
+            adapter=new LatestAdapter(getActivity(),mList);
             news_list.setAdapter(adapter);
 
             this.adapter.setOnItemClickListener(new ItemClickListener());
@@ -79,18 +79,23 @@ public class MainHotFragment extends BaseFragment implements UIDataListener<HotN
 
     }
 
-    class ItemClickListener implements HotNewsAdapter.RecyclerItemClickListener {
+    class ItemClickListener implements LatestAdapter.RecyclerItemClickListener {
 
         @Override
         public void onItemClick(View view, int postion) {
-            HotNews news=mList.get(postion);
-            String id=news.news_id;
-            String title=news.title;
+            LatestStory story=mList.get(postion);
+            String id=story.id;
+            String title=story.title;
+            String image="";
+            if (ValueUtils.isListNotEmpty(story.images)){
+                image=story.images.get(0);
+            }
             LogUtils.e("TAG","id=="+id);
             LogUtils.e("TAG", "title==" + title);
             Bundle bundle=new Bundle();
             bundle.putString("id",id);
             bundle.putString("title",title);
+            bundle.putString("image",image);
             goActy(NewsActivity.class,bundle);
         }
     }

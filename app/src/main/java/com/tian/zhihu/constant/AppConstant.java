@@ -14,7 +14,7 @@ public interface AppConstant {
     /**2. 软件版本查询*/
     String method_version="api/4/version/android/2.3.0";
     /**3. 最新消息*/
-    String method_news="api/4/news/latest";
+    String method_latest="api/4/news/latest";
     /**4. 消息内容获取与离线下载*/
     String method_news_content="api/4/news/";
     /**5. 过往消息*/
@@ -30,7 +30,5 @@ public interface AppConstant {
     String method_themes="api/4/themes";
     /**10. 主题日报内容查看*/
     String method_themes_content="api/4/theme/";
-    /**11. 热门消息*/
-    String method_news_hot="api/3/news/hot";
 
 }

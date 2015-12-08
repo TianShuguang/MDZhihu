@@ -13,8 +13,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.tian.zhihu.R;
 import com.tian.zhihu.base.BitmapCache;
 import com.tian.zhihu.network.VolleyQueueController;
-import com.tian.zhihu.network.bean.HotNews;
-import com.tian.zhihu.network.bean.ThemeStory;
+import com.tian.zhihu.network.bean.LatestStory;
 import com.tian.zhihu.utils.ValueUtils;
 
 import java.util.ArrayList;
@@ -22,17 +21,17 @@ import java.util.ArrayList;
 /**
  * Created by tianshuguang on 15/12/3.
  */
-public class HotNewsAdapter extends RecyclerView.Adapter<HotNewsAdapter.MViewHolder>{
+public class LatestAdapter extends RecyclerView.Adapter<LatestAdapter.MViewHolder>{
 
     private Context mContext;
-    private ArrayList<HotNews> mList=new ArrayList<HotNews>();
+    private ArrayList<LatestStory> mList=new ArrayList<LatestStory>();
     private RequestQueue mQueue;
     private ImageLoader mImageLoader;
 
     private RecyclerItemClickListener mListener;
 
 
-    public HotNewsAdapter(Context context, ArrayList<HotNews> list) {
+    public LatestAdapter(Context context, ArrayList<LatestStory> list) {
         this.mContext = context;
         this.mList = list;
         this.mQueue= VolleyQueueController.getInstance(mContext).getRequestQueue();
@@ -48,13 +47,13 @@ public class HotNewsAdapter extends RecyclerView.Adapter<HotNewsAdapter.MViewHol
 
     @Override
     public void onBindViewHolder(MViewHolder holder, int position) {
-        HotNews news = mList.get(position);
-        holder.mTextView.setText(news.title);
-        if (ValueUtils.isStrNotEmpty(news.thumbnail)) {
+        LatestStory latest = mList.get(position);
+        holder.mTextView.setText(latest.title);
+        if (ValueUtils.isListNotEmpty(latest.images)) {
             holder.mImageView.setVisibility(View.VISIBLE);
             //使用volley自带ImageLoader显示图片
             ImageLoader.ImageListener listener = ImageLoader.getImageListener(holder.mImageView, R.mipmap.default_pic, R.mipmap.default_pic);
-            mImageLoader.get(news.thumbnail, listener);
+            mImageLoader.get(latest.images.get(0), listener);
         }else{
             holder.mImageView.setVisibility(View.GONE);
         }

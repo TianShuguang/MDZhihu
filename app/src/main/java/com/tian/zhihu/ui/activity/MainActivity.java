@@ -2,14 +2,9 @@ package com.tian.zhihu.ui.activity;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,12 +22,11 @@ import com.tian.zhihu.constant.AppConstant;
 import com.tian.zhihu.network.NetworkHelper;
 import com.tian.zhihu.network.UIDataListener;
 import com.tian.zhihu.network.api.GetThemeHelper;
-import com.tian.zhihu.network.bean.StartImage;
 import com.tian.zhihu.network.bean.ZhihuTheme;
 import com.tian.zhihu.network.bean.ZhihuThemeList;
 import com.tian.zhihu.ui.adapter.MenuItemAdapter;
 import com.tian.zhihu.ui.fragment.FavoriteFragment;
-import com.tian.zhihu.ui.fragment.MainHotFragment;
+import com.tian.zhihu.ui.fragment.LatestFragment;
 import com.tian.zhihu.ui.fragment.NewsFragment;
 import com.tian.zhihu.ui.fragment.SettingFragment;
 import com.tian.zhihu.utils.DouleClickExitUtils;
@@ -103,7 +97,7 @@ public class MainActivity extends BaseActivity implements UIDataListener<ZhihuTh
         //该方法会自动和actionBar关联, 将开关的图片显示在了action上，如果不设置，也可以有抽屉的效果，不过是默认的图标
         drawerToggle.syncState();
 
-        MainHotFragment hotFrag=new MainHotFragment();
+        LatestFragment hotFrag=new LatestFragment();
         showFragment(hotFrag, null, R.id.main_content);
 
         getZhihuTheme();
@@ -240,7 +234,7 @@ public class MainActivity extends BaseActivity implements UIDataListener<ZhihuTh
             case R.id.navi_tv_main:
                 LogUtils.e(TAG,"navi_tv_main");
                 getSupportActionBar().setTitle("首页");
-                MainHotFragment hotFrag=new MainHotFragment();
+                LatestFragment hotFrag=new LatestFragment();
                 showFragment(hotFrag, null, R.id.main_content);
                 break;
         }
@@ -249,14 +243,14 @@ public class MainActivity extends BaseActivity implements UIDataListener<ZhihuTh
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         Fragment fragment=this.getCurrentFragment();
-        if (fragment instanceof MainHotFragment){
+        if (fragment instanceof LatestFragment){
             if (keyCode == KeyEvent.KEYCODE_BACK) {
                 //双击退出
                 doubleClick.onKeyDown(keyCode, event);
             }
         }else{
             getSupportActionBar().setTitle("首页");
-            MainHotFragment hotFrag=new MainHotFragment();
+            LatestFragment hotFrag=new LatestFragment();
             showFragment(hotFrag, null, R.id.main_content);
         }
         return true;

@@ -4,16 +4,16 @@ import android.content.Context;
 
 import com.android.volley.VolleyError;
 import com.tian.zhihu.network.NetworkHelper;
-import com.tian.zhihu.network.bean.HotNewsList;
+import com.tian.zhihu.network.bean.LatestBean;
 
 import org.json.JSONObject;
 
 /**
- * Created by tianshuguang on 15/12/6.
+ * Created by tianshuguang on 15/12/8.
  */
-public class GetHotNewsHelper extends NetworkHelper {
+public class GetLatestHelper extends NetworkHelper<LatestBean> {
 
-    public GetHotNewsHelper(Context context) {
+    public GetLatestHelper(Context context) {
         super(context);
     }
 
@@ -24,11 +24,11 @@ public class GetHotNewsHelper extends NetworkHelper {
 
     @Override
     protected void disposeResponse(JSONObject response) {
-        HotNewsList themeList=null;
+        LatestBean latest=null;
         if(response != null){
             try{
-                themeList=new HotNewsList(response);
-                notifyDataChanged(themeList);
+                latest=new LatestBean(response);
+                notifyDataChanged(latest);
             }catch (Exception e){
                 e.printStackTrace();
                 notifyErrorHappened("8888", "网络错误");
