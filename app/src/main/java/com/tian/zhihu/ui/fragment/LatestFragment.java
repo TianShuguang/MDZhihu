@@ -82,20 +82,30 @@ public class LatestFragment extends BaseFragment implements UIDataListener<Lates
     public void onErrorHappened(String errorCode, String errorMessage) {
 
     }
-
+    /**顶部Bunner点击事件*/
     class ChildListener implements OnChildClickListener{
 
         @Override
         public void onClick(LatestTopStory story) {
             LogUtils.e("ChildListener","title=="+story.title);
+            String id=story.id;
+            String title=story.title;
+            String image=story.image;
+            LogUtils.e("TAG","id=="+id);
+            LogUtils.e("TAG", "title==" + title);
+            Bundle bundle=new Bundle();
+            bundle.putString("id",id);
+            bundle.putString("title",title);
+            bundle.putString("image",image);
+            goActy(NewsActivity.class,bundle);
         }
     }
-
+    /**RecyclerView Item 点击事件*/
     class ItemClickListener implements LatestAdapter.RecyclerItemClickListener {
 
         @Override
         public void onItemClick(View view, int postion) {
-            LatestStory story=mList.get(postion);
+            LatestStory story=mList.get(postion-1);
             String id=story.id;
             String title=story.title;
             String image="";
