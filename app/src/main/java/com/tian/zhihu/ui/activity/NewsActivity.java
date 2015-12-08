@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -23,6 +25,7 @@ import com.tian.zhihu.network.VolleyQueueController;
 import com.tian.zhihu.network.api.GetNewsHelper;
 import com.tian.zhihu.network.bean.NewsContent;
 import com.tian.zhihu.network.bean.StartImage;
+import com.tian.zhihu.utils.LogUtils;
 import com.tian.zhihu.utils.ValueUtils;
 
 /**
@@ -120,6 +123,29 @@ public class NewsActivity extends BaseActivity implements UIDataListener<NewsCon
     @Override
     protected void registerEvents() {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_news, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.menu_share:
+                LogUtils.e(TAG,"menu_share");
+                break;
+            case R.id.menu_collect:
+                LogUtils.e(TAG,"menu_collect");
+                break;
+            case R.id.menu_comment:
+                LogUtils.e(TAG,"menu_comment");
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
