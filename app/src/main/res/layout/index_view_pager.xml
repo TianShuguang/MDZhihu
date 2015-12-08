@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.tian.zhihu.widget.viewpager.AutoViewPager
+        android:id="@+id/index_pager"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <com.viewpagerindicator.CirclePageIndicator
+        android:id="@+id/index_indicator"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/index_pager"
+        android:padding="10dip"
+        android:layout_marginBottom="10dip"
+        app:pageColor="@color/transparent"
+        app:radius="3dp" />
+
+</RelativeLayout>

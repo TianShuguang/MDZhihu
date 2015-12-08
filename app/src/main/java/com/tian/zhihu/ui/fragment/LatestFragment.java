@@ -14,10 +14,12 @@ import com.tian.zhihu.network.UIDataListener;
 import com.tian.zhihu.network.api.GetLatestHelper;
 import com.tian.zhihu.network.bean.LatestBean;
 import com.tian.zhihu.network.bean.LatestStory;
+import com.tian.zhihu.network.bean.LatestTopStory;
 import com.tian.zhihu.ui.activity.NewsActivity;
 import com.tian.zhihu.ui.adapter.LatestAdapter;
 import com.tian.zhihu.utils.LogUtils;
 import com.tian.zhihu.utils.ValueUtils;
+import com.tian.zhihu.widget.viewpager.OnChildClickListener;
 
 import java.util.ArrayList;
 
@@ -69,7 +71,7 @@ public class LatestFragment extends BaseFragment implements UIDataListener<Lates
             latestBean=data;
             LogUtils.d("data.stories.size()", "" + data.stories.size());
             mList=data.stories;
-            adapter=new LatestAdapter(getActivity(),latestBean);
+            adapter=new LatestAdapter(getActivity(),latestBean,new ChildListener());
             news_list.setAdapter(adapter);
 
             this.adapter.setOnItemClickListener(new ItemClickListener());
@@ -79,6 +81,14 @@ public class LatestFragment extends BaseFragment implements UIDataListener<Lates
     @Override
     public void onErrorHappened(String errorCode, String errorMessage) {
 
+    }
+
+    class ChildListener implements OnChildClickListener{
+
+        @Override
+        public void onClick(LatestTopStory story) {
+            LogUtils.e("ChildListener","title=="+story.title);
+        }
     }
 
     class ItemClickListener implements LatestAdapter.RecyclerItemClickListener {

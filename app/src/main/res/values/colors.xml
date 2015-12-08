@@ -6,6 +6,7 @@
 
     <color name="dark">#303f9f</color>
     <color name="light_background">#f5f5f5</color>
+    <color name="transparent">#00000000</color>
 
     <color name="light_toolbar">@color/colorPrimary</color>
     <color name="dark_toolbar">@android:color/black</color>
