@@ -38,7 +38,7 @@ public class NewsActivity extends BaseActivity implements UIDataListener<NewsCon
     private WebView news_webview;
 
     private NetworkHelper<NewsContent> newsHelper;
-    private String id="";
+    private String news_id="";
     private String title="";
     private String image="";
 
@@ -55,12 +55,12 @@ public class NewsActivity extends BaseActivity implements UIDataListener<NewsCon
 
         newsHelper=new GetNewsHelper(this);
         newsHelper.setUiDataListener(this);
-        newsHelper.sendPostRequest(AppConstant.method_news_content+id);
+        newsHelper.sendPostRequest(AppConstant.method_news_content+news_id);
     }
 
     private void initBundleData(){
         Bundle bundle= getIntent().getExtras();
-        id=bundle.getString("id");
+        news_id=bundle.getString("id");
         title=bundle.getString("title");
         image=bundle.getString("image");
     }
@@ -143,6 +143,9 @@ public class NewsActivity extends BaseActivity implements UIDataListener<NewsCon
                 break;
             case R.id.menu_comment:
                 LogUtils.e(TAG,"menu_comment");
+                Bundle bundle=new Bundle();
+                bundle.putString("id",news_id);
+                goActy(LongCommentsActivity.class,bundle);
                 break;
         }
         return super.onOptionsItemSelected(item);

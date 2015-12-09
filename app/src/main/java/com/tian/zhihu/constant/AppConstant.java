@@ -22,7 +22,7 @@ public interface AppConstant {
     /**6. 新闻额外信息*/
     String method_news_extra="api/4/story-extra/#{id}";
     /**7. 新闻对应长评论查看*/
-    String method_long_comments="api/4/story/#{id}/long-comments";
+    String method_long_comments="api/4/story/";
     /**8. 新闻对应短评论查看*/
     String method_short_comments="api/4/story/4232852/short-comments";
 
