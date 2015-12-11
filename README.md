@@ -46,4 +46,24 @@
 ### 如果说我看得比别人更远些，那是因为我站在巨人的肩膀上。<br> 对以上作者表示感谢！！！
 
 
+###程序截图
+    启动页
+    ![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/start.jpg)  
+    首页
+    ![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/main.jpg)  
+    菜单
+    ![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/menu.jpg)  
+    消息列表
+    ![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/news.jpg)  
+    消息内容
+    ![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/content.jpg)  
+    消息长评论
+    ![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/long_comments.jpg)  
+    
+
+
+
+
+
+
   
