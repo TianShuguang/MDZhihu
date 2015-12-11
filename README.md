@@ -21,6 +21,17 @@
     2.夜间模式
     3.设置（无图模式，清空缓存，反馈等）
     4.分享功能
+    5.网络请求增加进度条
+
+### 亮点
+    1.RecyclerView没有addHeaderView方法,在Adapter中根据position实现
+    2.基类Activity和基类Fragment封装，及App中Activity管理
+    3.使用封装后的Volley框架实现联网功能
+
+### 缺点
+    1.侧边栏滑动和首页ViewPager滑动冲突
+    2.已封装的volley框架中Request应增加requestID，方便同一界面对多请求的区分
+    3.未实现加载更多
 
 ### Dependencies
 
