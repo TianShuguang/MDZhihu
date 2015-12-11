@@ -48,19 +48,9 @@
 
 ###程序截图
 
-    ![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/start.jpg "启动页")  
-  
-    ![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/main.jpg)  
-    
-    
-    ![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/menu.jpg "菜单")  
-    消息列表
-    ![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/news.jpg)  
-    消息内容
-    ![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/content.jpg)  
-    消息长评论
-    ![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/long_comments.jpg)  
-    
+    ![image](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/start.jpg "启动页")  
+
+
 
 
 
