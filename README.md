@@ -47,12 +47,13 @@
 
 
 ###程序截图
-    启动页
-    ![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/start.jpg)  
-    首页
+
+    ![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/start.jpg "启动页")  
+  
     ![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/main.jpg)  
-    菜单
-    ![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/menu.jpg)  
+    
+    
+    ![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/menu.jpg "菜单")  
     消息列表
     ![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/news.jpg)  
     消息内容
