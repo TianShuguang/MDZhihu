@@ -48,7 +48,8 @@
 
 ###程序截图
 
-    ![image](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/start.jpg "启动页")  
+![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/start.jpg)
+
 
 
 
