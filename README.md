@@ -50,6 +50,19 @@
 
 ![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/start.jpg)
 
+![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/main.jpg)
+
+![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/menu.jpg)
+
+![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/news.jpg)
+
+![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/content.jpg)
+
+![](https://github.com/TianShuguang/MDZhihu/raw/master/screenshot/long_comments.jpg)
+
+
+
+
 
 
 
