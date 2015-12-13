@@ -86,7 +86,7 @@ public class NewsActivity extends BaseActivity implements UIDataListener<NewsCon
         initWebView();
     }
 
-    private void loadUrl(String url){
+    private void loadUrl(String url, final String shareUrl){
         if (ValueUtils.isStrNotEmpty(image)){
             content_iv_top.setImageUrl(image, new ImageLoader(mQueue, new BitmapCache()));
         }else{
@@ -97,12 +97,26 @@ public class NewsActivity extends BaseActivity implements UIDataListener<NewsCon
         if (ValueUtils.isEmpty(news_webview)){
             initWebView();
         }
-        String css = "<link rel=\"stylesheet\" href=\"file:///android_asset/css/news.css\" type=\"text/css\">";
+        if (ValueUtils.isStrEmpty(url)){
+            LogUtils.e(TAG,"ValueUtils.isStrEmpty(url)");
+            //webview loadUrl() 弹出系统浏览器解决办法
+            news_webview.setWebViewClient(new WebViewClient() {
+                @Override
+                public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                    //  重写此方法表明点击网页里面的链接还是在当前的webview里跳转，不跳到浏览器那边
+                    view.loadUrl(shareUrl);
+                    LogUtils.e(TAG, "shareUrl=="+shareUrl);
+                    return true;
+                }
+            });
+        }else {
+            String css = "<link rel=\"stylesheet\" href=\"file:///android_asset/css/news.css\" type=\"text/css\">";
 
-        String html = "<html><head>" + css + "</head><body>" + url + "</body></html>";
-        html = html.replace("<div class=\"img-place-holder\">", "");
+            String html = "<html><head>" + css + "</head><body>" + url + "</body></html>";
+            html = html.replace("<div class=\"img-place-holder\">", "");
 
-        news_webview.loadDataWithBaseURL("x-data://base", html, "text/html", "UTF-8", null);
+            news_webview.loadDataWithBaseURL("x-data://base", html, "text/html", "UTF-8", null);
+        }
     }
 
     private void initWebView(){
@@ -155,8 +169,9 @@ public class NewsActivity extends BaseActivity implements UIDataListener<NewsCon
     public void onDataChanged(NewsContent data) {
         if (ValueUtils.isNotEmpty(data)){
             String content=data.body;
-
-            loadUrl(content);
+            String shareUrl=data.share_url;
+            LogUtils.e(TAG,"shareUrl=="+shareUrl);
+            loadUrl(content,shareUrl);
         }
     }
 
