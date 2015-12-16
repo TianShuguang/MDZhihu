@@ -35,7 +35,7 @@
     compile 'com.android.support:cardview-v7:23.1.1'
     compile 'com.android.support:recyclerview-v7:23.1.1'
 
-### 如果说我看得比别人更远些，那是因为我站在巨人的肩膀上。<br> 对以上作者表示感谢！！！
+### 如果说我看得比别人更远些，那是因为我站在巨人的肩膀上！！！
 
 
 ###程序截图
